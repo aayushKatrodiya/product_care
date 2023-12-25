@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _appBar(context),
+      // appBar: _appBar(context),
       body: PageStorage(
         bucket: bucket,
         child: currentScreen,
@@ -106,17 +106,17 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  AppBar _appBar(BuildContext context) {
-    return AppBar(
-      title: const Text("Veriprod"),
-      actions: [
-        IconButton(
-          onPressed: () {
-            Navigator.pushNamed(context, "/serchScreen");
-          },
-          icon: const Icon(Icons.search),
-        ),
-      ],
-    );
-  }
+  // AppBar _appBar(BuildContext context) {
+  //   return AppBar(
+  //     title: const Text("Veriprod"),
+  //     actions: [
+  //       IconButton(
+  //         onPressed: () {
+  //           Navigator.pushNamed(context, "/serchScreen");
+  //         },
+  //         icon: const Icon(Icons.search),
+  //       ),
+  //     ],
+  //   );
+  // }
 }
