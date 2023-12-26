@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:product_care/add_product_screen/add_product_screen.dart';
-import 'package:product_care/get_start/get_start.dart';
 import 'package:product_care/home_screen/home_screen.dart';
 import 'package:product_care/home_screen/screens/serch.dart';
 import 'package:product_care/list.dart';
