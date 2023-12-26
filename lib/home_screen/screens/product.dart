@@ -116,6 +116,7 @@ class _ProductScreenState extends State<ProductScreen> {
 
   AppBar _apBar(BuildContext context) {
     return AppBar(
+      elevation: 0,
       backgroundColor: Colors.white,
       leading: const Icon(
         Icons.settings_outlined,

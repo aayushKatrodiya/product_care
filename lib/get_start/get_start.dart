@@ -11,6 +11,7 @@ class _GetStartState extends State<GetStart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 117, 55, 55),
       body:
           //Pading (top:80)
           SafeArea(
@@ -30,8 +31,8 @@ class _GetStartState extends State<GetStart> {
               ),
               // const SizedBox(height: 230),
               const CircleAvatar(
-                radius: 50,
-                backgroundColor: Color.fromARGB(255, 255, 252, 252),
+                radius: 150,
+                backgroundColor: Colors.transparent,
                 child: Image(
                   image: AssetImage("assets/image/Google_Logo.png"),
                 ),
