@@ -15,6 +15,9 @@ class _MyTestState extends State<MyTest> {
         itemCount: Check.myTest.length,
         itemBuilder: (context, index) {
           return ListTile(
+            leading: CircleAvatar(
+              child: Text(Check.myTest[index]['fname'][0]),
+            ),
             title: Row(
               children: [
                 Text(Check.myTest[index]['fname']),
