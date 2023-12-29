@@ -27,6 +27,8 @@ class _MyTestState extends State<MyTest> {
                 Text(Check.myTest[index]['lname']),
               ],
             ),
+            subtitle: Text(Check.myTest[index]['town']),
+            trailing: Text(Check.myTest[index]['time'].toString()),
           );
         },
       ),
@@ -41,18 +43,24 @@ class Check {
       "fname": 'Aayush',
       "mname": 'Vinubhai',
       "lname": 'Katrodiya',
+      "town": "Garden velly",
+      "time": 2.13
     },
     {
       'no.': 2,
       "fname": 'Vinay',
       "mname": 'Jitubhai',
       "lname": 'Katrodiya',
+      "town": "Twine tower",
+      "time": 4.45
     },
     {
       'no.': 1,
       "fname": 'Anshu',
       "mname": 'VishnuBhai',
       "lname": 'Kheni',
+      "town": "Kailasa tower",
+      "time": 7.33
     },
   ];
 }

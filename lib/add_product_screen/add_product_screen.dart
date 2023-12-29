@@ -11,6 +11,8 @@ class AddProductScreen extends StatefulWidget {
 }
 
 class _AddProductScreenState extends State<AddProductScreen> {
+  TextEditingController timeSetting = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,18 +51,24 @@ class _AddProductScreenState extends State<AddProductScreen> {
               ),
             ),
             DateTimePicker(
-              initialValue: DateTime.now().toString(),
-              firstDate: DateTime(2000),
+              // initialValue: DateTime.now().toString(),
+              firstDate: DateTime.now(),
               lastDate: DateTime(2100),
+              controller: timeSetting,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+              ),
               // dateLabelText: 'Enter Exirey Date*',
-              style: const TextStyle(),
-              icon: const Icon(Icons.event),
-              onChanged: (val) => log(val),
-              validator: (val) {
-                log(val.toString());
-                return null;
-              },
-              onSaved: (val) => log(val.toString()),
+              // style: const TextStyle(),
+              // icon: const Icon(Icons.event),
+              // onChanged: (val) => log(val),
+              // validator: (val) {
+              //   log(val.toString());
+              //   return null;
+              // },
+              // onSaved: (val) => log(val.toString()),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 90),

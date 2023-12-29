@@ -17,3 +17,7 @@ class AddProductClass {
     file = xFile != null ? File(xFile.path) : null;
   }
 }
+
+class DataShower {
+  // String name;
+}
