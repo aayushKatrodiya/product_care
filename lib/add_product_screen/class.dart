@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddProductClass {
@@ -16,8 +17,9 @@ class AddProductClass {
     XFile? xFile = await pickImageData.pickImage(source: ImageSource.camera);
     file = xFile != null ? File(xFile.path) : null;
   }
-}
 
-class DataShower {
-  // String name;
+  static TextEditingController dateSelectionController =
+      TextEditingController();
+
+  static TextEditingController productNameController = TextEditingController();
 }

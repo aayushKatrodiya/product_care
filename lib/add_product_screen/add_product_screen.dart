@@ -1,7 +1,7 @@
-import 'dart:developer';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:product_care/add_product_screen/class.dart';
+import 'package:product_care/add_product_screen/model.class.dart';
 
 class AddProductScreen extends StatefulWidget {
   const AddProductScreen({super.key});
@@ -11,7 +11,7 @@ class AddProductScreen extends StatefulWidget {
 }
 
 class _AddProductScreenState extends State<AddProductScreen> {
-  TextEditingController timeSetting = TextEditingController();
+  List<SelectedItemCrud> dataStored = List.empty(growable: true);
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +33,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 ),
               ),
             ),
-            const TextField(
-              decoration: InputDecoration(
+            TextField(
+              controller: AddProductClass.productNameController,
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
@@ -54,36 +55,58 @@ class _AddProductScreenState extends State<AddProductScreen> {
               // initialValue: DateTime.now().toString(),
               firstDate: DateTime.now(),
               lastDate: DateTime(2100),
-              controller: timeSetting,
+              controller: AddProductClass.dateSelectionController,
               decoration: const InputDecoration(
+                filled: false,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
               ),
-              // dateLabelText: 'Enter Exirey Date*',
-              // style: const TextStyle(),
-              // icon: const Icon(Icons.event),
-              // onChanged: (val) => log(val),
-              // validator: (val) {
-              //   log(val.toString());
-              //   return null;
-              // },
-              // onSaved: (val) => log(val.toString()),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 90),
               child: Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    setState(() {});
+                    String name = AddProductClass.productNameController.text;
+                    String date = AddProductClass.dateSelectionController.text;
+                    // ImageProvider image=AddProductClass.file!;
+                    if (name.isNotEmpty && date.isNotEmpty) {
+                      setState(() {
+                        SelectedItemCrud(
+                          name: name, date: date,
+                          // image: AddProductClass.file!.
+                        );
+                      });
+                    }
                   },
                   child: const Text("Add Product"),
                 ),
               ),
             ),
+            dataStored.isEmpty
+                ? const Text("Their is no dataStored")
+                : Expanded(
+                    child: ListView.builder(
+                      itemCount: dataStored.length,
+                      itemBuilder: (context, index) => getRow(index),
+                    ),
+                  )
           ],
         ),
       ),
+    );
+  }
+
+  Widget getRow(int index) {
+    return ListTile(
+      // leading: CircleAvatar(
+      //   child: Image(
+      //     image: AssetImage(dataStored[index].image.toString()),
+      //   ),
+      // ),
+      title: Text(dataStored[index].name),
+      subtitle: Text(dataStored[index].date),
     );
   }
 
@@ -127,53 +150,17 @@ class _AddProductScreenState extends State<AddProductScreen> {
         });
       },
       child: Container(
-          height: 200,
-          width: 320,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AddProductClass.file != null
-                  ? FileImage(AddProductClass.file!)
-                  : const AssetImage("assets/image/uplodImage.png")
-                      as ImageProvider,
-            ),
-          )),
+        height: 200,
+        width: 320,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AddProductClass.file != null
+                ? FileImage(AddProductClass.file!)
+                : const AssetImage("assets/image/uplodImage.png")
+                    as ImageProvider,
+          ),
+        ),
+      ),
     );
   }
 }
-// DottedBorder(
-//               borderType: BorderType.RRect,
-//               radius: const Radius.circular(20),
-//               dashPattern: const [10, 5],
-//               padding: const EdgeInsets.all(6),
-//               child: ClipRRect(
-//                 borderRadius: const BorderRadius.all(Radius.circular(12)),
-//                 child: Container(
-//                   height: 200,
-//                   width: 320,
-//                   color: Colors.white,
-//                   child: Center(
-//                     child: Column(
-//                       mainAxisSize: MainAxisSize.min,
-//                       children: [
-//                         IconButton(
-//                           onPressed: () {
-//                             setState(() {
-//                               AddProductClass.selectImageFromGallary();
-//                             });
-//                           },
-//                           icon: const Icon(Icons.image),
-//                         ),
-//                         const Text(
-//                           "Upload or take image",
-//                           style: TextStyle(
-//                             fontSize: 20,
-//                             fontWeight: FontWeight.bold,
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//             ),
-            
