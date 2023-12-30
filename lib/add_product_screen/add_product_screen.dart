@@ -11,7 +11,7 @@ class AddProductScreen extends StatefulWidget {
 }
 
 class _AddProductScreenState extends State<AddProductScreen> {
-  List<SelectedItemCrud> dataStored = List.empty(growable: true);
+  List<SelectedItemCrud> dataStored = [];
 
   @override
   Widget build(BuildContext context) {
@@ -85,13 +85,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
               ),
             ),
             dataStored.isEmpty
-                ? const Text("Their is no dataStored")
+                ? const Center(child: Text("Their is no dataStored"))
                 : Expanded(
                     child: ListView.builder(
                       itemCount: dataStored.length,
                       itemBuilder: (context, index) => getRow(index),
                     ),
-                  )
+                  ),
           ],
         ),
       ),
