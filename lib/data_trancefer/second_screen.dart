@@ -22,9 +22,9 @@ class SecondScreen2 extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text("Their is user's FName  : $fName"),
-            Text("Their is user's MName  : $mName"),
-            Text("Their is user's LName  : $lName"),
+            Text("Their is user's FName : $fName"),
+            Text("Their is user's MName : $mName"),
+            Text("Their is user's LName : $lName"),
           ],
         ),
       ),

@@ -16,7 +16,9 @@ class _FirstScreenState extends State<FirstScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // backgroundColor: const Color(0xfffc766af),
       appBar: AppBar(
+        backgroundColor: Colors.purple,
         title: const Text("fromeTranfer"),
       ),
       body: Padding(
