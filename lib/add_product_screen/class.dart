@@ -22,4 +22,11 @@ class AddProductClass {
       TextEditingController();
 
   static TextEditingController productNameController = TextEditingController();
+  static TextEditingController uriController = TextEditingController();
+
+  static int selectedIndex = 0;
+
+  static bool isUpdate = false;
+
+  static List<Map<String, dynamic>> dataStored = [];
 }

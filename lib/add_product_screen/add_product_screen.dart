@@ -1,7 +1,6 @@
-import 'package:date_time_picker/date_time_picker.dart';
-import 'package:flutter/material.dart';
-import 'package:product_care/add_product_screen/class.dart';
-import 'package:product_care/add_product_screen/model.class.dart';
+import "package:date_time_picker/date_time_picker.dart";
+import "package:flutter/material.dart";
+import "package:product_care/add_product_screen/class.dart";
 
 class AddProductScreen extends StatefulWidget {
   const AddProductScreen({super.key});
@@ -11,7 +10,13 @@ class AddProductScreen extends StatefulWidget {
 }
 
 class _AddProductScreenState extends State<AddProductScreen> {
-  List<SelectedItemCrud> dataStored = [];
+  @override
+  void dispose() {
+    AddProductClass.productNameController.dispose();
+    AddProductClass.uriController.dispose();
+    AddProductClass.dateSelectionController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +27,25 @@ class _AddProductScreenState extends State<AddProductScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _uplodImageSegment(context),
+            // _uplodImageSegment(context),
+            const Padding(
+              padding: EdgeInsets.only(top: 30),
+              child: Text(
+                "URI*",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            TextField(
+              controller: AddProductClass.uriController,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+              ),
+            ),
             const Padding(
               padding: EdgeInsets.only(top: 30),
               child: Text(
@@ -67,29 +90,54 @@ class _AddProductScreenState extends State<AddProductScreen> {
               padding: const EdgeInsets.symmetric(vertical: 90),
               child: Center(
                 child: ElevatedButton(
-                  onPressed: () {
-                    String name = AddProductClass.productNameController.text;
-                    String date = AddProductClass.dateSelectionController.text;
-                    // ImageProvider image=AddProductClass.file!;
-                    if (name.isNotEmpty && date.isNotEmpty) {
-                      setState(() {
-                        SelectedItemCrud(
-                          name: name, date: date,
-                          // image: AddProductClass.file!.
-                        );
-                      });
-                    }
-                  },
-                  child: const Text("Add Product"),
+                  onPressed: AddProductClass.isUpdate
+                      ? () {
+                          AddProductClass
+                                  .dataStored[AddProductClass.selectedIndex]
+                              ["uri"] = AddProductClass.uriController.text;
+                          AddProductClass
+                                      .dataStored[AddProductClass.selectedIndex]
+                                  ["name"] =
+                              AddProductClass.productNameController.text;
+                          AddProductClass
+                                      .dataStored[AddProductClass.selectedIndex]
+                                  ["date"] =
+                              AddProductClass.dateSelectionController.text;
+
+                          AddProductClass.isUpdate = false;
+
+                          AddProductClass.uriController.clear();
+                          AddProductClass.productNameController.clear();
+                          AddProductClass.dateSelectionController.clear();
+
+                          setState(() {});
+                        }
+                      : () {
+                          AddProductClass.dataStored.add({
+                            "uri": AddProductClass.uriController.text,
+                            "name": AddProductClass.productNameController.text,
+                            "date":
+                                AddProductClass.dateSelectionController.text,
+                          });
+                          AddProductClass.uriController.clear();
+                          AddProductClass.productNameController.clear();
+                          AddProductClass.dateSelectionController.clear();
+
+                          setState(() {});
+                        },
+                  child:
+                      Text(AddProductClass.isUpdate ? "Update" : "Add Product"),
                 ),
               ),
             ),
-            dataStored.isEmpty
+            AddProductClass.dataStored.isEmpty
                 ? const Center(child: Text("Their is no dataStored"))
                 : Expanded(
                     child: ListView.builder(
-                      itemCount: dataStored.length,
-                      itemBuilder: (context, index) => getRow(index),
+                      itemCount: AddProductClass.dataStored.length,
+                      itemBuilder: (context, index) {
+                        return listTile(index);
+                      },
                     ),
                   ),
           ],
@@ -98,15 +146,27 @@ class _AddProductScreenState extends State<AddProductScreen> {
     );
   }
 
-  Widget getRow(int index) {
+  Widget listTile(int index) {
     return ListTile(
-      // leading: CircleAvatar(
-      //   child: Image(
-      //     image: AssetImage(dataStored[index].image.toString()),
-      //   ),
-      // ),
-      title: Text(dataStored[index].name),
-      subtitle: Text(dataStored[index].date),
+      onTap: () {
+        AddProductClass.selectedIndex = index;
+        AddProductClass.uriController.text =
+            AddProductClass.dataStored[index]["uri"];
+        AddProductClass.productNameController.text =
+            AddProductClass.dataStored[index]["name"];
+        AddProductClass.dateSelectionController.text =
+            AddProductClass.dataStored[index]["date"];
+        AddProductClass.isUpdate = true;
+        setState(() {});
+      },
+      leading: CircleAvatar(
+        backgroundColor: Colors.white,
+        backgroundImage: NetworkImage(
+          AddProductClass.dataStored[index]["uri"],
+        ),
+      ),
+      title: Text(AddProductClass.dataStored[index]["name"]),
+      trailing: Text(AddProductClass.dataStored[index]["date"]),
     );
   }
 
@@ -126,7 +186,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
             context: context,
             builder: (context) {
               return AlertDialog(
-                title: const Text('Pick Image'),
+                title: const Text("Pick Image"),
                 actions: [
                   TextButton(
                     onPressed: () {
@@ -134,7 +194,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         AddProductClass.selectImageFromGallary();
                       });
                     },
-                    child: const Text('gallary'),
+                    child: const Text("gallary"),
                   ),
                   TextButton(
                       onPressed: () {
@@ -142,7 +202,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           AddProductClass.selectImageFromCamera();
                         });
                       },
-                      child: const Text('camara')),
+                      child: const Text("camara")),
                 ],
               );
             },
