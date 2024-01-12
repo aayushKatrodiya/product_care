@@ -22,125 +22,132 @@ class _AddProductScreenState extends State<AddProductScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar(),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // _uplodImageSegment(context),
-            const Padding(
-              padding: EdgeInsets.only(top: 30),
-              child: Text(
-                "URI*",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            TextField(
-              controller: AddProductClass.uriController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                ),
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(top: 30),
-              child: Text(
-                "Name*",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            TextField(
-              controller: AddProductClass.productNameController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                ),
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(top: 30),
-              child: Text(
-                "Expirey date*",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            DateTimePicker(
-              // initialValue: DateTime.now().toString(),
-              firstDate: DateTime.now(),
-              lastDate: DateTime(2100),
-              controller: AddProductClass.dateSelectionController,
-              decoration: const InputDecoration(
-                filled: false,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 90),
-              child: Center(
-                child: ElevatedButton(
-                  onPressed: AddProductClass.isUpdate
-                      ? () {
-                          AddProductClass
-                                  .dataStored[AddProductClass.selectedIndex]
-                              ["uri"] = AddProductClass.uriController.text;
-                          AddProductClass
-                                      .dataStored[AddProductClass.selectedIndex]
-                                  ["name"] =
-                              AddProductClass.productNameController.text;
-                          AddProductClass
-                                      .dataStored[AddProductClass.selectedIndex]
-                                  ["date"] =
-                              AddProductClass.dateSelectionController.text;
-
-                          AddProductClass.isUpdate = false;
-
-                          AddProductClass.uriController.clear();
-                          AddProductClass.productNameController.clear();
-                          AddProductClass.dateSelectionController.clear();
-
-                          setState(() {});
-                        }
-                      : () {
-                          AddProductClass.dataStored.add({
-                            "uri": AddProductClass.uriController.text,
-                            "name": AddProductClass.productNameController.text,
-                            "date":
-                                AddProductClass.dateSelectionController.text,
-                          });
-                          AddProductClass.uriController.clear();
-                          AddProductClass.productNameController.clear();
-                          AddProductClass.dateSelectionController.clear();
-
-                          setState(() {});
-                        },
-                  child:
-                      Text(AddProductClass.isUpdate ? "Update" : "Add Product"),
-                ),
-              ),
-            ),
-            AddProductClass.dataStored.isEmpty
-                ? const Center(child: Text("Their is no dataStored"))
-                : Expanded(
-                    child: ListView.builder(
-                      itemCount: AddProductClass.dataStored.length,
-                      itemBuilder: (context, index) {
-                        return listTile(index);
-                      },
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
+          child: Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // _uplodImageSegment(context),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 30),
+                    child: Text(
+                      "URI*",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-          ],
+                  TextField(
+                    controller: AddProductClass.uriController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 30),
+                    child: Text(
+                      "Name*",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  TextField(
+                    controller: AddProductClass.productNameController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 30),
+                    child: Text(
+                      "Expirey date*",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  DateTimePicker(
+                    // initialValue: DateTime.now().toString(),
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime(2100),
+                    controller: AddProductClass.dateSelectionController,
+                    decoration: const InputDecoration(
+                      filled: false,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 90),
+                    child: Center(
+                      child: ElevatedButton(
+                        onPressed: AddProductClass.isUpdate
+                            ? () {
+                                AddProductClass.dataStored[
+                                        AddProductClass.selectedIndex]["uri"] =
+                                    AddProductClass.uriController.text;
+                                AddProductClass.dataStored[
+                                        AddProductClass.selectedIndex]["name"] =
+                                    AddProductClass.productNameController.text;
+                                AddProductClass.dataStored[
+                                        AddProductClass.selectedIndex]["date"] =
+                                    AddProductClass
+                                        .dateSelectionController.text;
+
+                                AddProductClass.isUpdate = false;
+
+                                AddProductClass.uriController.clear();
+                                AddProductClass.productNameController.clear();
+                                AddProductClass.dateSelectionController.clear();
+
+                                setState(() {});
+                              }
+                            : () {
+                                AddProductClass.dataStored.add({
+                                  "uri": AddProductClass.uriController.text,
+                                  "name": AddProductClass
+                                      .productNameController.text,
+                                  "date": AddProductClass
+                                      .dateSelectionController.text,
+                                });
+                                AddProductClass.uriController.clear();
+                                AddProductClass.productNameController.clear();
+                                AddProductClass.dateSelectionController.clear();
+
+                                setState(() {});
+                              },
+                        child: Text(AddProductClass.isUpdate
+                            ? "Update"
+                            : "Add Product"),
+                      ),
+                    ),
+                  ),
+                  AddProductClass.dataStored.isEmpty
+                      ? const Center(child: Text("Their is no dataStored"))
+                      : Expanded(
+                          child: ListView.builder(
+                            itemCount: AddProductClass.dataStored.length,
+                            itemBuilder: (context, index) {
+                              return listTile(index);
+                            },
+                          ),
+                        ),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );
