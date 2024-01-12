@@ -12,16 +12,16 @@ class ImagePickerDemo extends StatefulWidget {
 class _ImagePickerDemoState extends State<ImagePickerDemo> {
   File? file;
 
-  Future<void> selectImageFromGallary() async {
-    ImagePicker pickImageData = ImagePicker();
-    XFile? xFile = await pickImageData.pickImage(source: ImageSource.gallery);
-    file = xFile != null ? File(xFile.path) : null;
-    setState(() {});
-  }
+  // Future<void> selectImageFromGallary(ImageSource source) async {
+  //   ImagePicker pickImageData = ImagePicker();
+  //   XFile? xFile = await pickImageData.pickImage(source: source);
+  //   file = xFile != null ? File(xFile.path) : null;
+  //   setState(() {});
+  // }
 
-  Future<void> selectImageFromCamera() async {
+  Future<void> selectImage(ImageSource source) async {
     ImagePicker pickImageData = ImagePicker();
-    XFile? xFile = await pickImageData.pickImage(source: ImageSource.camera);
+    XFile? xFile = await pickImageData.pickImage(source: source);
     file = xFile != null ? File(xFile.path) : null;
     setState(() {});
   }
@@ -34,7 +34,7 @@ class _ImagePickerDemoState extends State<ImagePickerDemo> {
           mainAxisSize: MainAxisSize.min,
           children: [
             CircleAvatar(
-              radius: 100,
+              radius: 180,
               backgroundImage: file != null
                   ? FileImage(file!)
                   : const NetworkImage(
@@ -44,7 +44,7 @@ class _ImagePickerDemoState extends State<ImagePickerDemo> {
             MaterialButton(
               color: Colors.purple.shade100,
               onPressed: () {
-                selectImageFromGallary();
+                selectImage(ImageSource.gallery);
                 setState(() {});
               },
               child: const Text('Upload From Gallry'),
@@ -52,7 +52,7 @@ class _ImagePickerDemoState extends State<ImagePickerDemo> {
             MaterialButton(
               color: Colors.purple.shade100,
               onPressed: () {
-                selectImageFromCamera();
+                selectImage(ImageSource.camera);
                 setState(() {});
               },
               child: const Text('Take Picture'),
